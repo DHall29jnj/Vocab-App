@@ -56,9 +56,9 @@ class VocabCard:
         self.review_counter = self.interval
         
 
-    def is_learned(self, max_repetitions=5):
+    def is_learned(self, max_repetitions=9):
         '''telling is if this word is learned completely (which is based off a max_repetitions parameter that we will define later)'''
-        
+       return self.repetitions >= max_repetitions
 
 
 # 1.4 we can create the spaced repetition algorithm that we'll use to create this long list that cleverly introduces new words, and tests old words at the appropriate intervals
