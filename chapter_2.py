@@ -62,7 +62,43 @@ class VocabCard:
 
 
 # 1.4 we can create the spaced repetition algorithm that we'll use to create this long list that cleverly introduces new words, and tests old words at the appropriate intervals
-
+def show_word-status(vocab_cards):
+    '''Displays the current status of the words and also returns the due words which is a list'''
+    
+    due_words = []
+    for card in vocab_cards.values():
+        #is the car due for review? if yes then add it to the array
+        if card.review_counter <= 0 and not card.is_new:
+            due_words.append(card)
+    return due_words
+def review_session(vocab_cards, max_repetitions=9):
+    '''Reviews words until all are oredered / mastered'''
+    history = [] #tracks the order of words reviewd or introduced
+    total_words_reviewed = 0
+    
+    #write spcaced repetition algorithm
+    while True:
+        #Reduce the review counter for all words
+        for card in vocab_cards.values():
+            if card.review_counter > 0:
+               card.review_counter -= 1 
+        #get the words due for review
+        due_words = show_word_status(vocab_cards)
+        # if no due words inroduce, inroduce a new word as a filler
+        if not due_words:
+            filler_word = None
+            for card in vocab_cards.values():
+                if card.is_new:
+                    filler_word = card
+                    break
+            if filler_word:
+                filler_word.is_new = False #mark as no longer new
+                history.append(filler_word.word)
+                total_words_reviewed += 1
+                continue
+        #Review the due words
+    
+    # write out our history list to a csv file
 
 
 if __name__ == '__main__':
